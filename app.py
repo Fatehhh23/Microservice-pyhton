@@ -44,10 +44,10 @@ def open_conn(config):
     conn.autocommit = True
     return conn
 
-# Fungsi untuk mengambil data terakhir sebanyak n_past untuk prediksi (48 hari ke belakang)
+# Fungsi untuk mengambil data terakhir sebanyak n_past untuk prediksi (87 hari ke belakang)
 def fetch_data_for_prediction(n_past=1440):
-    date_48_days_ago = datetime.now(timezone.utc) - timedelta(days=48)
-    start_date = date_48_days_ago.strftime("%Y-%m-%d %H:%M:%S")
+    date_87_days_ago = datetime.now(timezone.utc) - timedelta(days=87)
+    start_date = date_87_days_ago.strftime("%Y-%m-%d %H:%M:%S")
     
     conn = open_conn(EDDY_CONFIG)
     try:
@@ -93,10 +93,10 @@ def predict_and_insert():
 
     predicted_original = scaler.inverse_transform(dummy_full)[:, feature_cols.index('co2')]
 
-    # Mendapatkan tanggal dan waktu lokal saat ini, kemudian mengurangi 48 hari
+    # Mendapatkan tanggal dan waktu lokal saat ini, kemudian mengurangi 87 hari
     local_tz = pytz.timezone('Asia/Jakarta')  # Ganti dengan zona waktu sesuai kebutuhan
     current_local_date = datetime.now(local_tz)
-    last_timestamp = current_local_date - timedelta(days=48)
+    last_timestamp = current_local_date - timedelta(days=87)
 
     # Membuat future timestamps yang disesuaikan dengan zona waktu lokal
     future_timestamps = [
